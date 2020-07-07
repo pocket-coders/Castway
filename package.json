@@ -1,0 +1,10 @@
+{
+  "name": "castway",
+  "version": "0.0.1",
+  "description": "An open-source video conferencing application",
+  "main": "index.js",
+  "repository": "https://github.com/pocket-coders/Castway.git",
+  "author": "Dylan Finn, Emily Yu, Zage Phillips",
+  "license": "MIT",
+  "private": false
+}
