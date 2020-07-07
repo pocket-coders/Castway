@@ -9,6 +9,3 @@ An open-source video conferencing web app
 
 ----
  Authors: [Dylan Finn](https://github.com/dy-fi) | [Emily Yu](https://github.com/emilybelleyu) | [Zage Phillips](https://github.com/zphillips)
-×
-Drag and Drop
-The image will be downloaded
