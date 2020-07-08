@@ -1,16 +1,8 @@
 'use strict';
 
-const e = React.createElement
+var element = React.createElement("h1", null, "This is a working react server");
 
-class Index extends React.Component {
-  render() {
-    return e(
-      <div>
-       <h1>This is a NodeJS Typescript Server, configured with Yarn and serving React 😀</h1>
-      </div>
-    );
-  }
-}
-
-const container = document.querySelector('#index-container');
-ReactDOM.render(e(index), container)
+ReactDOM.render(
+  element,
+  document.getElementById('index-container')
+)

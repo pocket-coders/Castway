@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "An open-source video conferencing application",
   "main": "index.js",
-  "repository": "https://github.com/pocket-coders/Castway.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pocket-coders/Castway.git"
+  },
   "author": "Dylan Finn, Emily Yu, Zage Phillips",
   "license": "MIT",
   "private": false,
@@ -24,7 +27,13 @@
   "devDependencies": {
     "@types/express": "^4.17.7",
     "@types/node": "^14.0.19",
+    "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/pocket-coders/Castway/issues"
+  },
+  "homepage": "https://github.com/pocket-coders/Castway#readme",
+  "keywords": []
 }
