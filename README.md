@@ -12,6 +12,7 @@ yarn dev
 
 Production Distribution
 ```
+git clone github.com/pocket-coders/castway.git
 yarn build
 yarn start
 ```
