@@ -2,41 +2,43 @@ require('dotenv').config()
 
 // Declarations
 import express from "express"
-import bodyParser from "body-parser";
 import morgan from "morgan";
-
-// const favicon = require('serve-favicon')
-// const exphbs = require('express-handlebars');
-
-// Handlers
-import * as indexController from "./controllers/index"
+import shortid from "shortid";
 
 // export/environment
 const app = express();
 const port = process.env.PORT || 4000;
 
-// favicon
-// app.use(favicon(__dirname + '/public/resources/favicon.ico'));
+// socket mount
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
 
-// static scripts and styles in public
-// app.use(express.static('public'));
+// morgan
+app.use(morgan('combined'));
 
-// view engine
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
+// Create a Room
+app.get("/room/create", (req, res) => {
+    var id = shortid.generate();
+    res.json({"roomID": id});
+})
 
+io.on('connection', (socket: any) => {
+    // trying to join room
+    socket.on('join', (roomID: string) => {
+        socket.join(roomID);
+        io.to(roomID).emit({"connected": socket});
+    })
 
-app.use(morgan('tiny'));
-
-// MIDDLEWARE body parser
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json())
-
-// controllers
-app.get("/", indexController.indexHandler)
+    // on disconnect
+    socket.on('disconnecting', () => {
+        const rooms = Object.keys(socket.rooms);
+        for (const roomID in rooms) {
+            io.to(roomID).emit({"disconnected": socket})
+        }
+    })
+})
 
 // START
-app.listen(port);
-
-module.exports = app;
+http.listen(port, () => {
+    console.log('Listening on ' + port)
+});
