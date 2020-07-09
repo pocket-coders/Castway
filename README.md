@@ -1,6 +1,21 @@
 # Castway
 An open-source video conferencing web app
 
+____
+
+## Building Locally
+Dev mode
+```sh
+git clone github.com/pocket-coders/castway.git
+yarn dev
+```
+
+Production Distribution
+```
+yarn build
+yarn start
+```
+
 -----
 ## Built with
 * [NodeJS](https://nodejs.org/en/) - Server Framework
