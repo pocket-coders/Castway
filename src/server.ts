@@ -22,19 +22,28 @@ app.get("/room/create", (req, res) => {
     res.json({"roomID": id});
 })
 
-io.on('connection', (socket: any) => {
-    // trying to join room
-    socket.on('join', (roomID: string) => {
-        socket.join(roomID);
-        io.to(roomID).emit({"connected": socket});
+io.on('connection', (data: any) => {
+    var socket = data.socket;
+
+    // join room
+    socket.on('join', (data: any) => {
+        let room = data.roomID;
+
+        socket.join(data.room);
+        io.to(data.room).emit({"user-joined": socket.id});
     })
 
-    // on disconnect
-    socket.on('disconnecting', () => {
-        const rooms = Object.keys(socket.rooms);
-        for (const roomID in rooms) {
-            io.to(roomID).emit({"disconnected": socket})
-        }
+    // signalling
+    socket.on('signal', (data: any) => {
+        let room = data.roomID;
+        let message = data.message;
+
+        io.to(room).emit('signal', socket.id, message);       
+    })
+
+    // leave room
+    socket.on('disconnecting', (data: any) => {
+        io.to(data.roomID).emit('disconnected', socket.id)
     })
 })
 
